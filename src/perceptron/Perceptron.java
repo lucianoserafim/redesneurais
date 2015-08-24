@@ -1,30 +1,47 @@
 package perceptron;
 
-import java.util.ArrayList;
-
 public class Perceptron {
 
-	public Perceptron() {
-		
+	private Iris iris;
+
+	private float[] listaPesos = { 1, 2, 3, 4, 5 };
+
+	private float bias = -1;
+
+	public Perceptron(Iris iris) {
+
+		this.iris = iris;
+
 	}
 
-	public int funcaoAtivacao(ArrayList<Iris> iris, ArrayList<Float> pesos) {
+	public int perceptron() {
 
-		int i = 0;
+		return funcaoAtivacao(funcaoAgregacao());
 
-		for (i = 0; i < iris.size(); i++) {
+	}
 
-			float y = iris.get(i).getPetalLenght() * pesos.get(0);
+	public float funcaoAgregacao() {
+
+		return (bias * listaPesos[0]) + (iris.getPetalLenght() * listaPesos[1]) + (iris.getPetalWidth() * listaPesos[2])
+				+ (iris.getSepalLength() * listaPesos[3]) + (iris.getSepalWidth() * listaPesos[4]);
+
+	}
+
+	public int funcaoAtivacao(float y) {
+
+		int y1;
+
+		if (y > listaPesos[0]) {
+
+			y1 = 1;
+
+		} else {
+
+			y1 = 0;
 
 		}
 
-		return 0;
-
-	}
-
-	public int atualizaPesos() {
-
-		return 0;
+		return y1;
 
 	}
 
