@@ -4,13 +4,14 @@ public class Perceptron {
 
 	private Iris iris;
 
-	private float[] listaPesos = { 1, 2, 3, 4, 5 };
+	private float[] listaPesos;
 
-	private float bias = -1;
+	private float x0 = -1;
 
-	public Perceptron(Iris iris) {
+	public Perceptron(Iris iris, float[] listaPesos) {
 
 		this.iris = iris;
+		this.listaPesos = listaPesos;
 
 	}
 
@@ -22,26 +23,26 @@ public class Perceptron {
 
 	public float funcaoAgregacao() {
 
-		return (bias * listaPesos[0]) + (iris.getPetalLenght() * listaPesos[1]) + (iris.getPetalWidth() * listaPesos[2])
+		return (x0 * listaPesos[0]) + (iris.getPetalLenght() * listaPesos[1]) + (iris.getPetalWidth() * listaPesos[2])
 				+ (iris.getSepalLength() * listaPesos[3]) + (iris.getSepalWidth() * listaPesos[4]);
 
 	}
 
 	public int funcaoAtivacao(float y) {
 
-		int y1;
+		int saida;
 
-		if (y > listaPesos[0]) {
+		if (y > 0) {
 
-			y1 = 1;
+			saida = 1;
 
 		} else {
 
-			y1 = 0;
+			saida = 0;
 
 		}
 
-		return y1;
+		return saida;
 
 	}
 
