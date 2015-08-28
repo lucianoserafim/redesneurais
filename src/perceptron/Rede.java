@@ -15,7 +15,7 @@ public class Rede {
 
 	private float[] deltaWi = new float[5];
 
-	private float n = (float) 0.05;
+	private float n = (float) 0.001;
 
 	private int NumAcertos, numErros;
 
@@ -83,42 +83,55 @@ public class Rede {
 		int j;
 		int epocas = numEpocas;
 
+		List<Iris> listaOrd = lerArquivo(nome, base);
+
+		Collections.shuffle(listaOrd);
+
 		for (j = 0; j < epocas; j++) {
 
 			NumAcertos = 0;
 
 			numErros = 0;
 
-			List<Iris> listaOrd = lerArquivo(nome, base);
-
-			Collections.shuffle(listaOrd);
-
 			for (i = 0; i < listaOrd.size(); i++) {
 
+				try {
+
+					Thread.currentThread();
+					Thread.sleep(1000);
+
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+
+				}
+
 				Perceptron perceptron = new Perceptron(listaOrd.get(i), wi);
-				/*System.out.print("Classe: " + nome + " " + listaOrd.get(i).getClasse() + " Valor obtido: "
-						+ perceptron.perceptron());*/
 
 				int t = Integer.parseInt(listaOrd.get(i).getClasse());
 				int o = perceptron.perceptron();
 
 				if (o == t) {
 
-					//System.out.println(" Acerto");
+					if (o == 1) {
 
-					NumAcertos++;
+						System.out.println("t [" + t + "] o [" + o + "] Acertou");
+
+						NumAcertos++;
+
+					}
 
 				} else {
 
-					//System.out.println(" Erro");
+					System.err.println("t [" + t + "] o [" + o + "] Errou");
 
 					numErros++;
 
-					deltaWi[0] = deltaWi[0] + (t - o) * (-1);
-					deltaWi[1] = deltaWi[1] + (t - o) * listaOrd.get(i).getPetalLenght();
-					deltaWi[2] = deltaWi[2] + (t - o) * listaOrd.get(i).getPetalWidth();
-					deltaWi[3] = deltaWi[3] + (t - o) * listaOrd.get(i).getSepalLength();
-					deltaWi[4] = deltaWi[4] + (t - o) * listaOrd.get(i).getSepalWidth();
+					deltaWi[0] = (t - o) * (-1);
+					deltaWi[1] = (t - o) * listaOrd.get(i).getPetalLenght();
+					deltaWi[2] = (t - o) * listaOrd.get(i).getPetalWidth();
+					deltaWi[3] = (t - o) * listaOrd.get(i).getSepalLength();
+					deltaWi[4] = (t - o) * listaOrd.get(i).getSepalWidth();
 
 					wi[0] = wi[0] + (n * deltaWi[0]);
 					wi[1] = wi[1] + (n * deltaWi[1]);
@@ -135,6 +148,16 @@ public class Rede {
 		System.out.println();
 
 		System.out.println("Classe: " + nome + " Acertos: " + NumAcertos + " Erros: " + numErros);
+		System.out.print("w0 ");
+		System.out.println(wi[0]);
+		System.out.print("w1 ");
+		System.out.println(wi[1]);
+		System.out.print("w2 ");
+		System.out.println(wi[2]);
+		System.out.print("w3 ");
+		System.out.println(wi[3]);
+		System.out.print("w4 ");
+		System.out.println(wi[4]);
 
 	}
 

@@ -28,21 +28,21 @@ public class Perceptron {
 
 	}
 
-	public int funcaoAtivacao(float y) {
+	public int funcaoAtivacao(float u) {
 
-		int saida;
+		int y;
 
-		if (y > 0) {
+		if (u > 0) {
 
-			saida = 1;
+			y = 1;
 
 		} else {
 
-			saida = 0;
+			y = 0;
 
 		}
 
-		return saida;
+		return y;
 
 	}
 
