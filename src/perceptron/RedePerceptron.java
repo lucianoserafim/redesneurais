@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
-public class Rede {
+public class RedePerceptron {
 
 	private static BufferedReader leitor;
 
@@ -19,7 +19,7 @@ public class Rede {
 
 	private int NumAcertos, numErros;
 
-	public Rede() {
+	public RedePerceptron() {
 
 	}
 
