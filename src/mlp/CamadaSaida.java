@@ -2,7 +2,7 @@ package mlp;
 
 public class CamadaSaida {
 
-	private float[] somatorio;
+	private float[] somatorio3;
 
 	private float[][] pesos;
 
@@ -12,7 +12,7 @@ public class CamadaSaida {
 
 	public float[] perceptron(float[] cin, float[][] vetorPesos, int quantPerceptrons) {
 
-		somatorio = new float[quantPerceptrons];
+		somatorio3 = new float[quantPerceptrons];
 
 		pesos = vetorPesos;
 
@@ -26,33 +26,29 @@ public class CamadaSaida {
 
 			for (int j = 0; j < cin.length; j++) {
 
-				somatorio[i] = somatorio[i] + ((vetorPesos[i][j] * cin[j]));
+				somatorio3[i] = somatorio3[i] + ((vetorPesos[i][j] * cin[j]));
 
 			}
 
-			System.out.println("Camada Saida: " + somatorio[i]);
-
 		}
 
-		return funcaoAtivacao(somatorio);
+		return funcaoAtivacao(somatorio3);
 
 	}
 
 	public float[] funcaoAtivacao(float[] u) {
+		
+		double e = Math.E;
 
 		float[] y = new float[u.length];
 
 		for (int i = 0; i < u.length; i++) {
 
-			y[i] = (float) Math.tanh(u[i]);
+			y[i] = (float) (1 / (1 + Math.pow(e, -u[i] * (0.5))));
 
 		}
 
 		return y;
-
-	}
-
-	public void atualizaPesos() {
 
 	}
 

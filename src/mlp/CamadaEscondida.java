@@ -4,7 +4,7 @@ public class CamadaEscondida {
 
 	private float x0 = -1;
 
-	private float[] somatorio;
+	private float[] somatorio2;
 
 	private float[][] pesos;
 
@@ -14,7 +14,7 @@ public class CamadaEscondida {
 
 	public float[] perceptron(float[] cin, float[][] vetorPesos, int quantPerceptrons) {
 
-		somatorio = new float[quantPerceptrons];
+		somatorio2 = new float[quantPerceptrons];
 
 		pesos = vetorPesos;
 
@@ -26,37 +26,33 @@ public class CamadaEscondida {
 
 		for (int i = 0; i < quantPerceptrons; i++) {
 
-			somatorio[i] = (x0 * vetorPesos[i][0]);
+			somatorio2[i] = (x0 * vetorPesos[i][0]);
 
 			for (int j = 1; j < cin.length + 1; j++) {
 
-				somatorio[i] = somatorio[i] + ((vetorPesos[i][j] * cin[j - 1]));
+				somatorio2[i] = somatorio2[i] + ((vetorPesos[i][j] * cin[j - 1]));
 
 			}
 
-			System.out.println("Camada Escondida: " + somatorio[i]);
-
 		}
 
-		return funcaoAtivacao(somatorio);
+		return funcaoAtivacao(somatorio2);
 
 	}
 
 	public float[] funcaoAtivacao(float[] u) {
+		
+		double e = Math.E;
 
 		float[] y = new float[u.length];
 
 		for (int i = 0; i < u.length; i++) {
 
-			y[i] = (float) Math.tanh(u[i]);
+			y[i] = (float) (1 / (1 + Math.pow(e, -u[i] * (0.5))));
 
 		}
 
 		return y;
-
-	}
-
-	public void atualizaPesos() {
 
 	}
 
